@@ -14,8 +14,25 @@
 
     </head>
     <body>
-        <div style="width:75%;">
-            <canvas id="canvas"></canvas>
+        <div class="row">
+            <canvas class="col-lg-10 offset-lg-1" id="canvas"></canvas>
+        </div>
+
+        <br />
+
+        <div class="row text-center">
+            <div class="col-3">
+                Total Saved: <strong>${{ round(end($valueOfBtcSaved)) }}</strong>
+            </div>
+            <div class="col-3">
+                BTC Saved: <strong>{{ round($btcBalance, 4) }}</strong>
+            </div>
+            <div class="col-3">
+                Savings Gains: <strong>{{ round(end($valueOfBtcSaved) / end($accumulatedMoney) * 100) }}%</strong>
+            </div>
+            <div class="col-3">
+                Value Of BTC: <strong>${{ round($lastBtcPrice) }}</strong>
+            </div>
         </div>
 
         <script>
@@ -26,13 +43,13 @@
                 data: {
                     labels: [{{ implode(range(1, $savingsPeriodWeeks), ',') }}],
                     datasets: [{
-                        label: "Value of BitCoin saved (USD)",
+                        label: "Value of BitCoin saved",
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
                         data: [ {{ implode($valueOfBtcSaved, ',') }} ],
                         fill: false,
                     }, {
-                        label: "Accumulated Money Deposited (USD)",
+                        label: "Accumulated Money Deposited",
                         fill: false,
                         backgroundColor: 'rgb(54, 162, 235)',
                         borderColor: 'rgb(54, 162, 235)',
