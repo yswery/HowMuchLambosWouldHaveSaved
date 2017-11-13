@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Calculator\AccumulatedTimeSeries;
 use Illuminate\Http\Request;
 
 class BtcSavingsCalculator extends Controller
@@ -16,16 +17,15 @@ class BtcSavingsCalculator extends Controller
     public function index(Request $request)
     {
         $weeklyDepositAmount = $request->get('weeklyAmount', 20);
-        $savingsPeriod = $request->get('savingsPeriod', 12);
+        $savingsPeriod       = $request->get('savingsPeriod', 12);
 
         // 4.33 weeks per month average
         $savingsPeriodWeeks = ceil($savingsPeriod * 4.33);
 
-        // Get Accumulated money deposited
-        $accumulatedMoney = [];
-        foreach (range(1, $savingsPeriodWeeks) as $iteration) {
-            $accumulatedMoney[] = $weeklyDepositAmount * $iteration;
-        }
+        $accumulatedSeries = new AccumulatedTimeSeries($savingsPeriodWeeks, $weeklyDepositAmount);
+        $accumulatedMoney  = $accumulatedSeries->generate();
+
+        // ####  DO THE SAME for the BTC value
 
         return view('home', compact('savingsPeriodWeeks', 'accumulatedMoney'));
     }
