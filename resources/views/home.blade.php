@@ -32,9 +32,9 @@
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ["January", "February", "March", "April", "May", "June", "July"],
+                    labels: [{{ implode(range(1, $savingsPeriodWeeks), ',') }}],
                     datasets: [{
-                        label: "Value of BitCoin saved",
+                        label: "Value of BitCoin saved (USD)",
                         backgroundColor: window.chartColors.red,
                         borderColor: window.chartColors.red,
                         data: [
@@ -45,16 +45,11 @@
                         ],
                         fill: false,
                     }, {
-                        label: "Accumulated money put in",
+                        label: "Accumulated Money Deposited (USD)",
                         fill: false,
                         backgroundColor: window.chartColors.blue,
                         borderColor: window.chartColors.blue,
-                        data: [
-                            20,
-                            40,
-                            60,
-                            80
-                        ],
+                        data: [ {{ implode($accumulatedMoney, ',') }} ],
                     }]
                 },
                 options: {
@@ -76,14 +71,14 @@
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Month'
+                                labelString: 'Weeks'
                             }
                         }],
                         yAxes: [{
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Value'
+                                labelString: 'Value ($USD)'
                             }
                         }]
                     }
