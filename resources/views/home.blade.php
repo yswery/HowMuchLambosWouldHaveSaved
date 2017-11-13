@@ -8,7 +8,9 @@
         <title>{{ config('app.name') }}</title>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 
     </head>
     <body>
@@ -17,16 +19,6 @@
         </div>
 
         <script>
-            window.chartColors = {
-                red: 'rgb(255, 99, 132)',
-                orange: 'rgb(255, 159, 64)',
-                yellow: 'rgb(255, 205, 86)',
-                green: 'rgb(75, 192, 192)',
-                blue: 'rgb(54, 162, 235)',
-                purple: 'rgb(153, 102, 255)',
-                grey: 'rgb(201, 203, 207)'
-            };
-
             var ctx = document.getElementById("canvas").getContext('2d');
 
             var myChart = new Chart(ctx, {
@@ -35,15 +27,15 @@
                     labels: [{{ implode(range(1, $savingsPeriodWeeks), ',') }}],
                     datasets: [{
                         label: "Value of BitCoin saved (USD)",
-                        backgroundColor: window.chartColors.red,
-                        borderColor: window.chartColors.red,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
                         data: [ {{ implode($valueOfBtcSaved, ',') }} ],
                         fill: false,
                     }, {
                         label: "Accumulated Money Deposited (USD)",
                         fill: false,
-                        backgroundColor: window.chartColors.blue,
-                        borderColor: window.chartColors.blue,
+                        backgroundColor: 'rgb(54, 162, 235)',
+                        borderColor: 'rgb(54, 162, 235)',
                         data: [ {{ implode($accumulatedMoney, ',') }} ],
                     }]
                 },
