@@ -10,17 +10,37 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
 
     </head>
     <body>
-        <div class="row">
+
+
+        <div class="row mt-2">
+            <div class="col-10 offset-lg-1">
+                What if I saved
+                <select>
+                    @foreach([10, 20, 50, 100, 250] as $value)
+                        <option value="{{$value}}" {{ $value == $weeklyDepositAmount ? 'selected' : '' }}>${{$value}}</option>
+                    @endforeach
+                </select>
+                 per week for
+                <select>
+                    @foreach([6, 12, 18, 24] as $months)
+                        <option value="{{$months}}" {{ $months == $savingsPeriodMonths ? 'selected' : '' }}>{{$months}}</option>
+                    @endforeach
+                </select>
+                 months
+            </div>
+
+        </div>
+
+        <div class="row mt-2">
             <canvas class="col-lg-10 offset-lg-1" id="canvas"></canvas>
         </div>
 
-        <br />
-
-        <div class="row text-center">
+        <div class="row text-center mt-2">
             <div class="col-3">
                 Total Saved: <strong>${{ round(end($valueOfBtcSaved)) }}</strong>
             </div>
