@@ -37,12 +37,7 @@
                         label: "Value of BitCoin saved (USD)",
                         backgroundColor: window.chartColors.red,
                         borderColor: window.chartColors.red,
-                        data: [
-                            20,
-                            22,
-                            234,
-                            211
-                        ],
+                        data: [ {{ implode($valueOfBtcSaved, ',') }} ],
                         fill: false,
                     }, {
                         label: "Accumulated Money Deposited (USD)",
