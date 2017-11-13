@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Calculator\AccumulatedTimeSeries;
+use App\Calculator\ValueOfBtcTimeSeries;
 use Illuminate\Http\Request;
 
 class BtcSavingsCalculator extends Controller
@@ -25,8 +26,12 @@ class BtcSavingsCalculator extends Controller
         $accumulatedSeries = new AccumulatedTimeSeries($savingsPeriodWeeks, $weeklyDepositAmount);
         $accumulatedMoney  = $accumulatedSeries->generate();
 
-        // ####  DO THE SAME for the BTC value
+        $valueOfBtcSeries = new ValueOfBtcTimeSeries($savingsPeriodWeeks, $weeklyDepositAmount);
+        $valueOfBtcSaved  = $valueOfBtcSeries->generate();
 
-        return view('home', compact('savingsPeriodWeeks', 'accumulatedMoney'));
+        $btcBalance   = $valueOfBtcSeries->accumulatedBtc;
+        $lastBtcPrice = $valueOfBtcSeries->lastBtcPrice;
+
+        return view('home', compact('savingsPeriodWeeks', 'accumulatedMoney', 'valueOfBtcSaved', 'btcBalance', 'lastBtcPrice'));
     }
 }
