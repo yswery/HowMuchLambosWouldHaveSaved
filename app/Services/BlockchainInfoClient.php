@@ -42,7 +42,7 @@ class BlockchainInfoClient
         $response = $this->guzzleClient->request('GET', $this->apiUrl, [
             'query' => [
                 'format'   => 'json',
-                'timespan' => '2years'
+                'timespan' => 'all'
             ],
         ]);
 
