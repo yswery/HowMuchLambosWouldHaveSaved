@@ -18,10 +18,10 @@ class BtcSavingsCalculator extends Controller
     public function index(Request $request)
     {
         $weeklyDepositAmount = $request->get('weeklyAmount', 20);
-        $savingsPeriod       = $request->get('savingsPeriod', 12);
+        $savingsPeriodMonths = $request->get('savingsPeriod', 12);
 
         // 4.33 weeks per month average
-        $savingsPeriodWeeks = ceil($savingsPeriod * 4.33);
+        $savingsPeriodWeeks = ceil($savingsPeriodMonths * 4.33);
 
         $accumulatedSeries = new AccumulatedTimeSeries($savingsPeriodWeeks, $weeklyDepositAmount);
         $accumulatedMoney  = $accumulatedSeries->generate();
@@ -32,6 +32,6 @@ class BtcSavingsCalculator extends Controller
         $btcBalance   = $valueOfBtcSeries->accumulatedBtc;
         $lastBtcPrice = $valueOfBtcSeries->lastBtcPrice;
 
-        return view('home', compact('savingsPeriodWeeks', 'accumulatedMoney', 'valueOfBtcSaved', 'btcBalance', 'lastBtcPrice'));
+        return view('home', compact('savingsPeriodWeeks', 'accumulatedMoney', 'valueOfBtcSaved', 'btcBalance', 'lastBtcPrice', 'weeklyDepositAmount', 'savingsPeriodMonths'));
     }
 }
