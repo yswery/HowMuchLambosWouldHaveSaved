@@ -20,13 +20,13 @@
         <div class="row mt-2">
             <div class="col-10 offset-lg-1">
                 What if I saved
-                <select>
+                <select id="weekly-amount">
                     @foreach([10, 20, 50, 100, 250] as $value)
                         <option value="{{$value}}" {{ $value == $weeklyDepositAmount ? 'selected' : '' }}>${{$value}}</option>
                     @endforeach
                 </select>
                  per week for
-                <select>
+                <select id="savings-period">
                     @foreach([6, 12, 18, 24] as $months)
                         <option value="{{$months}}" {{ $months == $savingsPeriodMonths ? 'selected' : '' }}>{{$months}}</option>
                     @endforeach
@@ -109,6 +109,12 @@
                 }
             });
 
+
+            $( document ).ready(function() {
+                $('select').on('change', function() {
+                    window.location = '/?weeklyAmount=' + $('#weekly-amount').val() + '&savingsPeriod=' + $('#savings-period').val();
+                })
+            });
 
         </script>
 
