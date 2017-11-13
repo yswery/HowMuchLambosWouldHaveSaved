@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use GuzzleHttp\Client as GuzzleClient;
+
 class BlockchainInfoClient
 {
 
@@ -10,19 +12,42 @@ class BlockchainInfoClient
      *
      * @var string
      */
-    private $apiUrl = 'https://blockchain.info/charts/market-price?';
+    private $apiUrl = 'https://blockchain.info/charts/market-price';
+
+    /**
+     * The Guzzle API client
+     *
+     * @var GuzzleClient
+     */
+    protected $guzzleClient;
 
     /**
      * API Client constructor giving ability to set the timespan
      *
      * @param int $timeSpanMonths The timespan for the daily price in months
      */
-    public function __construct($timeSpanMonths = 18)
+    public function __construct(GuzzleClient $guzzleClient = null)
     {
-        $this->apiUrl .= http_build_query([
-            'format' => 'json',
-            'timespan' => sprintf('%dmonths', $timeSpanMonths)
+        $this->guzzleClient = $guzzleClient ?? new GuzzleClient();
+    }
+
+    /**
+     * Fetching the daily price dataset giving ability to set the timespan
+     *
+     * @param int $timeSpanMonths The timespan for the daily price in months
+     *
+     * @return Array $response The price list array
+     */
+    public function getDailyPrices($timeSpanMonths = 18)
+    {
+        $response = $this->guzzleClient->request('GET', $this->apiUrl, [
+            'query' => [
+                'format' => 'json',
+                'timespan' => sprintf('%dmonths', $timeSpanMonths)
+            ]
         ]);
+
+        return json_decode($response->getBody());
     }
 
 
