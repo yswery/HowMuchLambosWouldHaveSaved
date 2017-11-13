@@ -27,12 +27,12 @@ class AccumulatedTimeSeries
      */
     public function __construct($savingsPeriodWeeks, $weeklyDepositAmount)
     {
-        $this->savingsPeriodWeeks       = $savingsPeriodWeeks;
+        $this->savingsPeriodWeeks  = $savingsPeriodWeeks;
         $this->weeklyDepositAmount = $weeklyDepositAmount;
     }
 
     /**
-     * Generate the chartable savings
+     * Generate the chart-able savings
      *
      * @return Array $accumulatedMoney
      */
@@ -42,7 +42,7 @@ class AccumulatedTimeSeries
         // Get Accumulated money deposited
         $accumulatedMoney = [];
         foreach (range(1, $this->savingsPeriodWeeks) as $iteration) {
-            $accumulatedMoney[] = $this->weeklyDepositAmount * $iteration;
+            $accumulatedMoney[] = end($accumulatedMoney) + $this->weeklyDepositAmount;
         }
 
         return $accumulatedMoney;
