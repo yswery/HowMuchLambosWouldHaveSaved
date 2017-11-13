@@ -34,16 +34,15 @@ class BlockchainInfoClient
     /**
      * Fetching the daily price dataset giving ability to set the timespan
      *
-     * @param int $timeSpanMonths The timespan for the daily price in months
      *
      * @return Array $response The price list array
      */
-    public function getDailyPrices($timeSpanMonths = 18)
+    public function getDailyPrices()
     {
         $response = $this->guzzleClient->request('GET', $this->apiUrl, [
             'query' => [
                 'format'   => 'json',
-                'timespan' => sprintf('%dmonths', $timeSpanMonths),
+                'timespan' => '2years'
             ],
         ]);
 
