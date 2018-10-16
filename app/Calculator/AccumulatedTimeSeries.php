@@ -36,7 +36,7 @@ class AccumulatedTimeSeries
      *
      * @return Array $accumulatedMoney
      */
-    public function generate()
+    public function generate() : array
     {
 
         // Get Accumulated money deposited
