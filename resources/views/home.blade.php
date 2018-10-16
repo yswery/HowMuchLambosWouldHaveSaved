@@ -110,10 +110,10 @@
             });
 
 
-            $( document ).ready(function() {
-                $('select').on('change', function() {
+            $(function() {
+                $(document).on('change', 'select', function() {
                     window.location = '/?weeklyAmount=' + $('#weekly-amount').val() + '&savingsPeriod=' + $('#savings-period').val();
-                })
+                });
             });
 
         </script>
