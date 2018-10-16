@@ -11,4 +11,5 @@
 |
 */
 
+// Main route
 Route::get('/', 'BtcSavingsCalculator@index');
