@@ -61,7 +61,7 @@ class ValueOfBtcTimeSeries
      *
      * @return Array $btcSavingsCombined
      */
-    public function generate()
+    public function generate() : array
     {
         $accumulatedBtcValue = [];
         $btcPrices           = $this->blockchainInfoClient->getDailyPrices()->values;
